@@ -12,7 +12,9 @@ const transporter = nodemailer.createTransport({
     pass : ""
   }
 })
-
+app.get("/",(req,res)=>{
+  res.end("Hello all server is Running!")
+})
 app.get("/send-mail",(req,res)=>{
   const {name,email,subject,message} = req.body;
 
