@@ -2,7 +2,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config()
+require("dotenv").config();
 const app = express();
 
 app.use(bodyParser.json());
@@ -38,17 +38,18 @@ app.post("/send-mail", (req, res) => {
   };
 
   // Send email
-  transporter.sendMail(mailOptions, (error) => {
+  transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email:", error);
-      return res.status(500).send("An error occurred while sending the email.");
+      return res.status(500).send(`An error occurred while sending the email: ${error.message}`);
     }
+    console.log("Email sent:", info.response);
     res.status(200).send("Email sent successfully!");
   });
 });
 
 // Start server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1678; // Changed port to 4000
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
